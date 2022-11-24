@@ -229,7 +229,7 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
                     <Form.Control value={this.state?.breakFluidLevel}
                       onChange={(e) => {
                         this.setState({
-                          breakFluidLevel: parseInt(e.currentTarget.value, 10)
+                          breakFluidLevel: parseInt(e.currentTarget.value, 10) || 0
                         })
                       }} />
                   </InputGroup>
@@ -244,7 +244,7 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
                     <Form.Control value={this.state?.coolantLevel}
                       onChange={(e) => {
                         this.setState({
-                          coolantLevel: parseInt(e.currentTarget.value, 10)
+                          coolantLevel: parseInt(e.currentTarget.value, 10) || 0
                         })
                       }} />
                   </InputGroup>
@@ -259,7 +259,7 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
                     <Form.Control value={this.state?.fuelLevel}
                       onChange={(e) => {
                         this.setState({
-                          fuelLevel: parseInt(e.currentTarget.value, 10)
+                          fuelLevel: parseInt(e.currentTarget.value, 10) || 0
                         })
                       }} />
                   </InputGroup>
@@ -275,7 +275,7 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
                     <Form.Control placeholder="FL Pressure" value={this.state?.frontLeftPressure}
                       onChange={(e) => {
                         this.setState({
-                          frontLeftPressure: parseInt(e.currentTarget.value, 10)
+                          frontLeftPressure: parseInt(e.currentTarget.value, 10) || 0
                         })
                       }} />
                   </InputGroup>
@@ -286,7 +286,7 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
                     <Form.Control placeholder="FR Pressure" value={this.state?.frontRightTyrePressure}
                       onChange={(e) => {
                         this.setState({
-                          frontRightTyrePressure: parseInt(e.currentTarget.value, 10)
+                          frontRightTyrePressure: parseInt(e.currentTarget.value, 10) || 0
                         })
                       }} />
                   </InputGroup>
@@ -297,7 +297,7 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
                     <Form.Control placeholder="RL Pressure" value={this.state?.rearLeftPressure}
                       onChange={(e) => {
                         this.setState({
-                          rearLeftPressure: parseInt(e.currentTarget.value, 10)
+                          rearLeftPressure: parseInt(e.currentTarget.value, 10) || 0
                         })
                       }} />
                   </InputGroup>
@@ -308,7 +308,7 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
                     <Form.Control placeholder="RR Pressure" value={this.state?.rearRightPressure}
                       onChange={(e) => {
                         this.setState({
-                          rearRightPressure: parseInt(e.currentTarget.value, 10)
+                          rearRightPressure: parseInt(e.currentTarget.value, 10) || 0
                         })
                       }} />
                   </InputGroup>
