@@ -18,5 +18,6 @@ export function getItem(itemId: number) {
  * @returns 
  */
 export function updateItem(itemId: number, itemInfo: ItemInfo) {
-    return axios.put('/item/' + itemId, itemInfo);
+    // return axios.put('/item/' + itemId, itemInfo);
+    return axios.get('/mocks/item.json');
 }

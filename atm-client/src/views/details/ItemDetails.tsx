@@ -6,38 +6,47 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import BootstrapSwitchButton from 'bootstrap-switch-button-react'
+import Toast from 'react-bootstrap/Toast';
+import ToastContainer from 'react-bootstrap/ToastContainer';
 
 import './ItemDetails.css';
 import { ItemInfo } from '../../models/ItemInfo';
-import { getItem } from '../../services/item-details.service';
+import { getItem, updateItem } from '../../services/item-details.service';
 
-interface IItemDetailsState {
-  item: ItemInfo | null;
+interface IItemDetailsState extends ItemInfo {
+  showToast: boolean;
 }
 
 class ItemDetails extends React.Component<{}, IItemDetailsState> {
 
   constructor(props: any) {
     super(props);
-    this.state = {
-      item: null
-    };
   }
 
   componentDidMount() {
     getItem(1).then((resp) => {
+      this.setState({ ...resp.data });
+    });
+  }
+
+  submitForm(data: ItemInfo) {
+    updateItem(1, data).then((resp) => {
       this.setState({
-        item: resp.data,
+        showToast: true
       });
     });
   }
 
   render(): React.ReactNode {
-    const { item } = this.state;
-    console.log('item:', item)
     return (
       <Form>
         <Container >
+          <ToastContainer position="top-end" className="p-3">
+            <Toast className="d-inline-block m-1" bg="light"
+              onClose={() => this.setState({ showToast: false })} show={!!this.state?.showToast} delay={3000} autohide>
+              <Toast.Body>Data has been updated successfully!</Toast.Body>
+            </Toast>
+          </ToastContainer>
           <Row>
             <Col>
               <Form.Label column className="pt-3 pb-3">
@@ -48,7 +57,11 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
                   HeadLight
                 </Form.Label>
                 <Col sm={4}>
-                  <BootstrapSwitchButton checked={item?.headLight} width={90} height={25} onstyle="info" offstyle="dark" />
+                  <BootstrapSwitchButton checked={this.state?.headLight} width={90} height={25} onstyle="info" offstyle="dark"
+                    onChange={(checked: boolean) => {
+                      this.setState({ headLight: checked })
+                    }}
+                  />
                 </Col>
               </Form.Group>
               <Form.Group as={Row} className="mb-3">
@@ -56,7 +69,10 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
                   Bonnet is open
                 </Form.Label>
                 <Col sm={4}>
-                  <BootstrapSwitchButton checked={item?.bonet} width={90} height={25} onstyle="info" offstyle="dark" />
+                  <BootstrapSwitchButton checked={this.state?.bonet} width={90} height={25} onstyle="info" offstyle="dark"
+                    onChange={(checked: boolean) => {
+                      this.setState({ bonet: checked })
+                    }} />
                 </Col>
               </Form.Group>
               <Form.Group as={Row} className="mb-3">
@@ -64,7 +80,10 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
                   Boot is open
                 </Form.Label>
                 <Col sm={4}>
-                  <BootstrapSwitchButton checked={item?.boot} width={90} height={25} onstyle="info" offstyle="dark" />
+                  <BootstrapSwitchButton checked={this.state?.boot} width={90} height={25} onstyle="info" offstyle="dark"
+                    onChange={(checked: boolean) => {
+                      this.setState({ boot: checked })
+                    }} />
                 </Col>
               </Form.Group>
               <Form.Group as={Row} className="mb-3">
@@ -72,7 +91,10 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
                   Wiper
                 </Form.Label>
                 <Col sm={4}>
-                  <BootstrapSwitchButton checked={item?.wiper} width={90} height={25} onstyle="info" offstyle="dark" />
+                  <BootstrapSwitchButton checked={this.state?.wiper} width={90} height={25} onstyle="info" offstyle="dark"
+                    onChange={(checked: boolean) => {
+                      this.setState({ wiper: checked })
+                    }} />
                 </Col>
               </Form.Group>
               <Form.Group as={Row} className="mb-3">
@@ -80,7 +102,10 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
                   Petrol fuel tank lid
                 </Form.Label>
                 <Col sm={4}>
-                  <BootstrapSwitchButton checked={item?.petrolFuelTankLid} width={90} height={25} onstyle="info" offstyle="dark" />
+                  <BootstrapSwitchButton checked={this.state?.petrolFuelTankLid} width={90} height={25} onstyle="info" offstyle="dark"
+                    onChange={(checked: boolean) => {
+                      this.setState({ petrolFuelTankLid: checked })
+                    }} />
                 </Col>
               </Form.Group>
               <Form.Group as={Row} className="mb-3">
@@ -88,7 +113,10 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
                   Handbrake
                 </Form.Label>
                 <Col sm={4}>
-                  <BootstrapSwitchButton checked={item?.handBreak} width={90} height={25} onstyle="info" offstyle="dark" />
+                  <BootstrapSwitchButton checked={this.state?.handBreak} width={90} height={25} onstyle="info" offstyle="dark"
+                    onChange={(checked: boolean) => {
+                      this.setState({ handBreak: checked })
+                    }} />
                 </Col>
               </Form.Group>
               <Form.Group as={Row} className="mb-3">
@@ -96,10 +124,18 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
                   Left/Right indicator
                 </Form.Label>
                 <Col sm={2}>
-                  <BootstrapSwitchButton checked={item?.letfIndicator} width={90} height={25} onlabel="L On" offlabel="L Off" onstyle="info" offstyle="dark" />
+                  <BootstrapSwitchButton checked={this.state?.letfIndicator} width={90} height={25}
+                    onlabel="L On" offlabel="L Off" onstyle="info" offstyle="dark"
+                    onChange={(checked: boolean) => {
+                      this.setState({ letfIndicator: checked })
+                    }} />
                 </Col>
                 <Col sm={2}>
-                  <BootstrapSwitchButton checked={item?.rightIndicator} width={90} height={25} onlabel="R On" offlabel="R Off" onstyle="info" offstyle="dark" />
+                  <BootstrapSwitchButton checked={this.state?.rightIndicator} width={90} height={25}
+                    onlabel="R On" offlabel="R Off" onstyle="info" offstyle="dark"
+                    onChange={(checked: boolean) => {
+                      this.setState({ rightIndicator: checked })
+                    }} />
                 </Col>
               </Form.Group>
               <Form.Group as={Row} className="mb-3">
@@ -107,16 +143,32 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
                   Door open
                 </Form.Label>
                 <Col sm={2}>
-                  <BootstrapSwitchButton checked={item?.frontLeftDoor} width={90} height={25} onlabel="FL On" offlabel="FL Off" onstyle="info" offstyle="dark" />
+                  <BootstrapSwitchButton checked={this.state?.frontLeftDoor} width={90} height={25}
+                    onlabel="FL On" offlabel="FL Off" onstyle="info" offstyle="dark"
+                    onChange={(checked: boolean) => {
+                      this.setState({ frontLeftDoor: checked })
+                    }} />
                 </Col>
                 <Col sm={2}>
-                  <BootstrapSwitchButton checked={item?.frontRightDoor} width={90} height={25} onlabel="FR On" offlabel="FR Off" onstyle="info" offstyle="dark" />
+                  <BootstrapSwitchButton checked={this.state?.frontRightDoor} width={90} height={25}
+                    onlabel="FR On" offlabel="FR Off" onstyle="info" offstyle="dark"
+                    onChange={(checked: boolean) => {
+                      this.setState({ frontRightDoor: checked })
+                    }} />
                 </Col>
                 <Col sm={2}>
-                  <BootstrapSwitchButton checked={item?.rearLeftDoor} width={90} height={25} onlabel="RL On" offlabel="RL Off" onstyle="info" offstyle="dark" />
+                  <BootstrapSwitchButton checked={this.state?.rearLeftDoor} width={90} height={25}
+                    onlabel="RL On" offlabel="RL Off" onstyle="info" offstyle="dark"
+                    onChange={(checked: boolean) => {
+                      this.setState({ rearLeftDoor: checked })
+                    }} />
                 </Col>
                 <Col sm={2}>
-                  <BootstrapSwitchButton checked={item?.frontRightWindow} width={90} height={25} onlabel="RR On" offlabel="RR Off" onstyle="info" offstyle="dark" />
+                  <BootstrapSwitchButton checked={this.state?.rearRightDoor} width={90} height={25}
+                    onlabel="RR On" offlabel="RR Off" onstyle="info" offstyle="dark"
+                    onChange={(checked: boolean) => {
+                      this.setState({ rearRightDoor: checked })
+                    }} />
                 </Col>
               </Form.Group>
               <Form.Group as={Row} className="mb-3">
@@ -124,16 +176,32 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
                   Window open
                 </Form.Label>
                 <Col sm={2}>
-                  <BootstrapSwitchButton checked={item?.frontLeftWindow} width={90} height={25} onlabel="FL On" offlabel="FL Off" onstyle="info" offstyle="dark" />
+                  <BootstrapSwitchButton checked={this.state?.frontLeftWindow} width={90} height={25}
+                    onlabel="FL On" offlabel="FL Off" onstyle="info" offstyle="dark"
+                    onChange={(checked: boolean) => {
+                      this.setState({ frontLeftWindow: checked })
+                    }} />
                 </Col>
                 <Col sm={2}>
-                  <BootstrapSwitchButton checked={item?.frontRightWindow} width={90} height={25} onlabel="FR On" offlabel="FR Off" onstyle="info" offstyle="dark" />
+                  <BootstrapSwitchButton checked={this.state?.frontRightWindow} width={90} height={25}
+                    onlabel="FR On" offlabel="FR Off" onstyle="info" offstyle="dark"
+                    onChange={(checked: boolean) => {
+                      this.setState({ frontRightWindow: checked })
+                    }} />
                 </Col>
                 <Col sm={2}>
-                  <BootstrapSwitchButton checked={item?.rearLeftWindow} width={90} height={25} onlabel="RL On" offlabel="RL Off" onstyle="info" offstyle="dark" />
+                  <BootstrapSwitchButton checked={this.state?.rearLeftWindow} width={90} height={25}
+                    onlabel="RL On" offlabel="RL Off" onstyle="info" offstyle="dark"
+                    onChange={(checked: boolean) => {
+                      this.setState({ rearLeftWindow: checked })
+                    }} />
                 </Col>
                 <Col sm={2}>
-                  <BootstrapSwitchButton checked={item?.rearRightWindow} width={90} height={25} onlabel="RR On" offlabel="RR Off" onstyle="info" offstyle="dark" />
+                  <BootstrapSwitchButton checked={this.state?.rearRightWindow} width={90} height={25}
+                    onlabel="RR On" offlabel="RR Off" onstyle="info" offstyle="dark"
+                    onChange={(checked: boolean) => {
+                      this.setState({ rearRightWindow: checked })
+                    }} />
                 </Col>
               </Form.Group>
             </Col>
@@ -146,7 +214,10 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
                   Music
                 </Form.Label>
                 <Col sm={4}>
-                  <BootstrapSwitchButton checked={item?.music} width={90} height={25} onstyle="info" offstyle="dark" />
+                  <BootstrapSwitchButton checked={this.state?.music} width={90} height={25} onstyle="info" offstyle="dark"
+                    onChange={(checked: boolean) => {
+                      this.setState({ music: checked })
+                    }} />
                 </Col>
               </Form.Group>
               <Form.Group as={Row} className="mb-3">
@@ -155,7 +226,12 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
                 </Form.Label>
                 <Col sm={4}>
                   <InputGroup className="mb-3">
-                    <Form.Control value={item?.breakFluidLevel} />
+                    <Form.Control value={this.state?.breakFluidLevel}
+                      onChange={(e) => {
+                        this.setState({
+                          breakFluidLevel: parseInt(e.currentTarget.value, 10)
+                        })
+                      }} />
                   </InputGroup>
                 </Col>
               </Form.Group>
@@ -165,7 +241,12 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
                 </Form.Label>
                 <Col sm={4}>
                   <InputGroup className="mb-3">
-                    <Form.Control value={item?.coolantLevel} />
+                    <Form.Control value={this.state?.coolantLevel}
+                      onChange={(e) => {
+                        this.setState({
+                          coolantLevel: parseInt(e.currentTarget.value, 10)
+                        })
+                      }} />
                   </InputGroup>
                 </Col>
               </Form.Group>
@@ -175,7 +256,12 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
                 </Form.Label>
                 <Col sm={4}>
                   <InputGroup className="mb-3">
-                    <Form.Control value={item?.fuelLevel} />
+                    <Form.Control value={this.state?.fuelLevel}
+                      onChange={(e) => {
+                        this.setState({
+                          fuelLevel: parseInt(e.currentTarget.value, 10)
+                        })
+                      }} />
                   </InputGroup>
                 </Col>
               </Form.Group>
@@ -186,25 +272,45 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
                 <Col sm={2}>
                   <InputGroup className="mb-3">
                     <InputGroup.Text id="inputGroup-sizing-sm">FL</InputGroup.Text>
-                    <Form.Control placeholder="FL Pressure" value={item?.frontLeftPressure} />
+                    <Form.Control placeholder="FL Pressure" value={this.state?.frontLeftPressure}
+                      onChange={(e) => {
+                        this.setState({
+                          frontLeftPressure: parseInt(e.currentTarget.value, 10)
+                        })
+                      }} />
                   </InputGroup>
                 </Col>
                 <Col sm={2}>
                   <InputGroup className="mb-3">
                     <InputGroup.Text id="inputGroup-sizing-sm">FR</InputGroup.Text>
-                    <Form.Control placeholder="FR Pressure" value={item?.frontRightTyrePressure} />
+                    <Form.Control placeholder="FR Pressure" value={this.state?.frontRightTyrePressure}
+                      onChange={(e) => {
+                        this.setState({
+                          frontRightTyrePressure: parseInt(e.currentTarget.value, 10)
+                        })
+                      }} />
                   </InputGroup>
                 </Col>
                 <Col sm={2}>
                   <InputGroup className="mb-3">
                     <InputGroup.Text id="inputGroup-sizing-sm">RL</InputGroup.Text>
-                    <Form.Control placeholder="RL Pressure" value={item?.rearLeftPressure} />
+                    <Form.Control placeholder="RL Pressure" value={this.state?.rearLeftPressure}
+                      onChange={(e) => {
+                        this.setState({
+                          rearLeftPressure: parseInt(e.currentTarget.value, 10)
+                        })
+                      }} />
                   </InputGroup>
                 </Col>
                 <Col sm={2}>
                   <InputGroup className="mb-3">
                     <InputGroup.Text id="inputGroup-sizing-sm">RR</InputGroup.Text>
-                    <Form.Control placeholder="RR Pressure" value={item?.rearRightPressure} />
+                    <Form.Control placeholder="RR Pressure" value={this.state?.rearRightPressure}
+                      onChange={(e) => {
+                        this.setState({
+                          rearRightPressure: parseInt(e.currentTarget.value, 10)
+                        })
+                      }} />
                   </InputGroup>
                 </Col>
               </Form.Group>
@@ -214,7 +320,7 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
             <Col>
               <Form.Group as={Row} className="mt-5">
                 <Col sm={{ span: 4, offset: 4 }}>
-                  <Button className='submit-button' type="submit">Submit</Button>
+                  <Button className='submit-button' type="button" onClick={() => this.submitForm(this.state)}>Submit</Button>
                 </Col>
               </Form.Group>
             </Col>
