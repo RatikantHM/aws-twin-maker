@@ -1,5 +1,5 @@
 export interface ItemInfo {
-    carId: number;
+    carId: number | string;
     headLight: boolean;
     bonet: boolean;
     boot: boolean;

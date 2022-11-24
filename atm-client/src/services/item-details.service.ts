@@ -6,7 +6,7 @@ import { ItemInfo } from '../models/ItemInfo';
  * @param itemId 
  * @returns 
  */
-export function getItem(itemId: number) {
+export function getItem(itemId: number | string) {
     // return axios.get('/item/' + itemId);
     return axios.get('/mocks/item.json');
 }
@@ -17,7 +17,7 @@ export function getItem(itemId: number) {
  * @param itemInfo 
  * @returns 
  */
-export function updateItem(itemId: number, itemInfo: ItemInfo) {
+export function updateItem(itemId: number | string, itemInfo: ItemInfo) {
     // return axios.put('/item/' + itemId, itemInfo);
     return axios.get('/mocks/item.json');
 }

@@ -24,13 +24,15 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
   }
 
   componentDidMount() {
-    getItem(1).then((resp) => {
+    const id = window.location.pathname.split('/').pop() || '';
+    getItem(id).then((resp) => {
       this.setState({ ...resp.data });
     });
   }
 
   submitForm(data: ItemInfo) {
-    updateItem(1, data).then((resp) => {
+    const id = window.location.pathname.split('/').pop() || '';
+    updateItem(id, data).then((resp) => {
       this.setState({
         showToast: true
       });
