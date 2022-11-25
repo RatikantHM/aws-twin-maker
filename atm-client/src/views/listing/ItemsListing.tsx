@@ -23,8 +23,9 @@ class ItemsListing extends React.Component<{}, IItemListingState> {
 
     componentDidMount() {
         getItems().then((resp) => {
+            const convertedArray = [resp.data]; // Should return an array; but its returning an Object - so made the changes accordingly
             this.setState({
-                items: resp.data,
+                items: convertedArray, 
             });
         });
     }

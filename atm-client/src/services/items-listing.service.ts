@@ -6,5 +6,5 @@ import { ItemInfo } from '../models/ItemInfo';
  * @returns 
  */
 export function getItems() {
-    return axiosInstance.get<ItemInfo[]>('/dev/api/twins');
+    return axiosInstance.get<ItemInfo>('/dev/api/twins');
 }

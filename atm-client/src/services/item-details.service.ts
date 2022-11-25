@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axiosInstance from './axios.service';
 import { ItemInfo } from '../models/ItemInfo';
 
 /**
@@ -7,8 +7,7 @@ import { ItemInfo } from '../models/ItemInfo';
  * @returns 
  */
 export function getItem(itemId: number | string) {
-    // return axios.get('/item/' + itemId);
-    return axios.get('/mocks/item.json');
+    return axiosInstance.get<ItemInfo>('/dev/api/twins');
 }
 
 /**
@@ -18,6 +17,5 @@ export function getItem(itemId: number | string) {
  * @returns 
  */
 export function updateItem(itemId: number | string, itemInfo: ItemInfo) {
-    // return axios.put('/item/' + itemId, itemInfo);
-    return axios.get('/mocks/item.json');
+    return axiosInstance.post('/dev/api/twins', itemInfo);
 }
