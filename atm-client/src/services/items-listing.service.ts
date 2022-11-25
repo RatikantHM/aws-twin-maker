@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axiosInstance from './axios.service';
 import { ItemInfo } from '../models/ItemInfo';
 
 /**
@@ -6,5 +6,5 @@ import { ItemInfo } from '../models/ItemInfo';
  * @returns 
  */
 export function getItems() {
-    return axios.get<ItemInfo[]>('/mocks/items.json');
+    return axiosInstance.get<ItemInfo[]>('/dev/api/twins');
 }

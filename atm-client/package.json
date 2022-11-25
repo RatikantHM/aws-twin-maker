@@ -2,6 +2,7 @@
   "name": "atm-client",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://mzhal3hl8f.execute-api.us-east-1.amazonaws.com",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
