@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -49,6 +50,11 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
               <Toast.Body>Data has been updated successfully!</Toast.Body>
             </Toast>
           </ToastContainer>
+          <Row>
+            <Col className='offset-5'>
+              <NavLink to="/">Back to listing page</NavLink>
+            </Col>
+          </Row>
           <Row>
             <Col>
               <Form.Label column className="pt-3 pb-3">
