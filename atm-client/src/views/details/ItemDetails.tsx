@@ -41,6 +41,7 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
   }
 
   render(): React.ReactNode {
+    const id = window.location.pathname.split('/').pop() || '';
     return (
       <Form>
         <Container >
@@ -51,8 +52,11 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
             </Toast>
           </ToastContainer>
           <Row>
-            <Col className='offset-5'>
-              <NavLink to="/">Back to listing page</NavLink>
+            <Col className='col-span-2'>
+              <NavLink to="/">Go back to listing page</NavLink>
+            </Col>
+            <Col className='col-span-2'>
+              <NavLink to={`/items/info/${id}`}>Go to design details page</NavLink>
             </Col>
           </Row>
           <Row>

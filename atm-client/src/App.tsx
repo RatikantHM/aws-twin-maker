@@ -12,6 +12,7 @@ import './App.css';
 import Header from './components/header/Header';
 import ItemDetails from './views/details/ItemDetails';
 import ItemsListing from './views/listing/ItemsListing';
+import ItemInfo from './views/info/ItemInfo';
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
               <Route path="/items" element={<ItemsListing />}>
               </Route>
               <Route path="/items/:id" element={<ItemDetails />}>
+              </Route>
+              <Route path="/items/info/:id" element={<ItemInfo />}>
               </Route>
               <Route path="/" element={<ItemsListing />}>
               </Route>
