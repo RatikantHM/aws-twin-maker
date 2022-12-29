@@ -44,7 +44,7 @@ class ItemDetails extends React.Component<{}, IItemDetailsState> {
     const id = window.location.pathname.split('/').pop() || '';
     return (
       <Form>
-        <Container >
+        <Container>
           <ToastContainer position="top-end" className="p-3">
             <Toast className="d-inline-block m-1" bg="light"
               onClose={() => this.setState({ showToast: false })} show={!!this.state?.showToast} delay={3000} autohide>
